@@ -1,0 +1,45 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=postgres
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16
+    restart: always
+    container_name: quiz_db_dev
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: quiz_db_user
+      POSTGRES_PASSWORD: quiz_db_password
+      POSTGRES_DB: quiz_db_dev
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - quiz_net
+
+volumes:
+  postgres_data:
+
+networks:
+  quiz_net:
+    driver: bridge
