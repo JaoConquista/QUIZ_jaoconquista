@@ -1,6 +1,7 @@
 import express from "express";
 import { initializeDB } from "./db/index";
 import { IndexRouter } from "./routes/index";
+import cors from "cors";
 
 const start = async () => {
   try {
@@ -11,6 +12,12 @@ const start = async () => {
     const PORT = 8080;
 
     app.use(express.json());
+    app.use(
+      cors({
+        origin: "http://localhost:3000",
+        credentials: false,
+      }),
+    );
     app.use("/api", router);
 
     app.listen(PORT, () => {
