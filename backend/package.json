@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon",
-    "typeorm": "ts-node ./node_modules/typeorm/cli.js",
-    "migration:generate": "npm run typeorm -- migration:generate -n",
+    "lint:check": "prettier --check .",
+    "lint:fix": "prettier --write .",
     "migration:run": "npm run typeorm -- migration:run -d src/db/dataSource.ts"
   },
   "keywords": [],
@@ -15,6 +15,7 @@
   "devDependencies": {
     "@types/express": "^5.0.3",
     "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   },
